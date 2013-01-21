@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kilo.dao.mapper.BidDAO">
+
+	<resultMap type="com.kilo.domain.Bid" id="bid">
+		<result property="bidId" column="bid_id"/>
+        <association property="bidItem" resultMap="BidItem.bidItem">
+        </association>
+        <association property="user" column="user_id" select="User.getUserById">
+        </association>
+		<result property="bidTime" column="bid_time"/>
+		<result property="isWinningBid" column="is_winning_bid"/>
+		<result property="bidPrice" column="bid_price"/>
+	</resultMap>
+	
+	<resultMap type="com.kilo.domain.dto.BidItemCategoryAvgBidPrice" id="averageBidPricePerCategory">
+		<result property="bidItemCategory" column="bid_item_category_id" select="BidItemCategory.getBidItemCategoryById"/>
+		<result property="avgBidPrice" column="avg_bid_price"/>
+	</resultMap>
+
+	<select id="getBidsForBidIds" resultMap="bid" parameterType="java.util.List">
+		/*${com.kilo.statement.marker}*/
+		SELECT b.bid_id, b.user_id, b.bid_time, b.is_winning_bid, b.bid_price,
+		       bi.bid_item_id, bi.bid_item_category_id, bi.name, bi.description
+		  FROM bid b
+		  JOIN bid_item bi
+		    ON b.bid_item_id = bi.bid_item_id
+		 WHERE <iterate prepend="b.bid_id IN" conjunction="," open="(" close=")">
+		 		#[]#
+		       </iterate>
+	</select>
+
+	<select id="getBidsForUniqueBidIds" resultMap="bid" parameterClass="java.util.Set">
+		/*${com.kilo.statement.marker}*/
+		SELECT b.bid_id, b.user_id, b.bid_time, b.is_winning_bid, b.bid_price,
+		       bi.bid_item_id, bi.bid_item_category_id, bi.name, bi.description
+		  FROM bid b
+		  JOIN bid_item bi
+		    ON b.bid_item_id = bi.bid_item_id
+		 WHERE <iterate prepend="b.bid_id IN" conjunction="," open="(" close=")">
+		 		#[]#
+		       </iterate>
+	</select>
+
+	<select id="getAverageBidPricePerCategoryForBidIds" resultMap="averageBidPricePerCategory"
+		parameterClass="java.util.List">
+		/*${com.kilo.statement.marker}*/
+		SELECT bi.bid_item_category_id, AVG(b.bid_price) AS avg_bid_price
+		  FROM bid b
+		  JOIN bid_item bi
+		    ON b.bid_item_id = bi.bid_item_id
+		 WHERE <iterate prepend="b.bid_id IN" conjunction="," open="(" close=")">
+		 		#[]#
+		       </iterate>
+      GROUP BY bi.bid_item_category_id
+	</select>
+
+</sqlMap>

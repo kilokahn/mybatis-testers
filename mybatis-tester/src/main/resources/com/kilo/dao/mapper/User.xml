@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="User">
+	<resultMap class="com.kilo.domain.User" id="user">
+		<result property="userId" column="user_id"/>
+		<result property="userName" column="name"/>
+		<result property="referralSources" column="user_id" select="ReferralSource.getReferalSourceByUserId"/>
+	</resultMap>
+	
+	<resultMap id="userWithLoginLocations" class="com.kilo.domain.User"
+		extends="User.user" groupBy="userId">
+        <result property="loginLocations" resultMap="LoginLocation.loginLocation" />
+	</resultMap>
+
+	<resultMap id="userWithLoginIpAddresses" class="com.kilo.domain.User"
+		extends="userWithLoginLocations" groupBy="userId">
+        <result property="loginIpAddresses" resultMap="User.loginIpAddressMap" />
+	</resultMap>
+
+    <resultMap class="java.lang.String" id="loginIpAddressMap">
+        <result property="value" column="ip_address"/>
+    </resultMap>
+    
+	<resultMap id="userWithLoginLocationsAndUniqueSites" class="com.kilo.domain.User"
+		extends="User.userWithLoginLocations" groupBy="userId">
+        <result property="uniqueSites" resultMap="User.siteMap" />
+	</resultMap>
+
+    <resultMap class="java.lang.String" id="siteMap">
+        <result property="value" column="site"/>
+    </resultMap>
+    
+	<select id="getUsers" resultMap="userWithLoginLocationsAndUniqueSites">
+		/*${com.kilo.statement.marker}*/
+		SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
+		  FROM [user] u
+		  JOIN user_login_location_map ullm
+		    ON ullm.user_id = u.user_id
+		  JOIN login_location ll
+		    ON ll.login_location_id = ullm.login_location_id  
+	</select>
+	
+	<select id="getUserById" resultMap="userWithLoginLocationsAndUniqueSites" parameterClass="java.lang.Integer">
+		/*${com.kilo.statement.marker}*/
+		SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site --blah
+		  FROM [user] u
+		  JOIN user_login_location_map ullm
+		    ON ullm.user_id = u.user_id
+		  JOIN login_location ll
+		    ON ll.login_location_id = ullm.login_location_id  
+		 WHERE u.user_id = #userId#
+	</select>
+
+	<select id="getUserByName" resultMap="userWithLoginLocationsAndUniqueSites" parameterClass="java.lang.String">
+		/*${com.kilo.statement.marker}*/
+		SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
+		  FROM [user] u
+		  JOIN user_login_location_map ullm
+		    ON ullm.user_id = u.user_id
+		  JOIN login_location ll
+		    ON ll.login_location_id = ullm.login_location_id  
+		 WHERE u.name = #userName#
+	</select>
+</sqlMap>

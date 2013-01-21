@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kilo.dao.mapper.ReferralSourceDAO">
+    
+    <cache flushInterval="86400" readOnly="true" />
+
+	<resultMap type="com.kilo.domain.ReferralSource" id="referralSource">
+		<result property="referralSourceId" column="referral_source_id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+
+	<select id="getReferralSources" resultMap="referralSource" useCache="false">
+        /* ${com.kilo.statement.marker} */
+		SELECT referral_source_id, name
+		  FROM referral_source
+	</select>
+	
+	<select id="getReferralSourceById" resultMap="referralSource" 
+        parameterType="int" >
+		SELECT referral_source_id, name
+		  FROM referral_source
+		 WHERE referral_source_id = #{referralSourceId}
+	</select>
+
+	<select id="getReferalSourceByUserId" resultMap="referralSource" 
+        parameterType="int" >
+		SELECT rs.referral_source_id, rs.name
+		  FROM referral_source rs
+		  JOIN user_referral_source_map ursm
+		    ON rs.referral_source_id = ursm.referral_source_id
+		 WHERE ursm.user_id = #{userId}
+	</select>
+
+
+</mapper>

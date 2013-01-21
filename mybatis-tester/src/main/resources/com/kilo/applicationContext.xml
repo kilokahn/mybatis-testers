@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="testerDataSource" class="deshaw.moss.service.dao.framework.MossDataSource">
+		<property name="testOnBorrow" value="true" />
+		<property name="maxActive" value="10" />
+		<property name="validationQuery">
+			<value>SELECT 1</value>
+		</property>
+		<property name="applicationName" value="${com.kilo.application.name}" />
+		<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:jtds:sqlserver://DBDEVHYD1DS1:1433/sandbox;sendStringParametersAsUnicode=false" />
+		<property name="username" value="guestuser" />
+		<property name="password" value="deshaw" />
+	</bean>
+
+    <!-- define the SqlSessionFactory, notice that configLocation is not needed when you use MapperFactoryBean -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="testerDataSource" />
+        <property name="configLocation" value="classpath:com/kilo/dao/sqlmap-config.xml" />
+        <property name="mapperLocations" value="classpath:com/kilo/dao/mapper/*.xml" />
+    </bean>
+
+    <!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.kilo.dao.mapper" />
+    </bean>
+
+</beans>

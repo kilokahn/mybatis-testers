@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="LoginLocation">
+	<resultMap class="com.kilo.domain.LoginLocation" id="loginLocation">
+		<result property="loginLocationId" column="login_location_id"/>
+		<result property="ipAddress" column="ip_address"/>
+		<result property="site" column="site"/>
+	</resultMap>
+
+	<select id="getLoginLocations" resultMap="loginLocation">
+		/*${com.kilo.statement.marker}*/
+		SELECT login_location_id, ip_address, site
+		  FROM login_location
+	</select>
+	
+	<select id="getLoginLocationById" resultMap="loginLocation" parameterClass="java.lang.Long">
+		/*${com.kilo.statement.marker}*/
+		SELECT login_location_id, ip_address, site
+		  FROM login_location
+		 WHERE login_location_id = #loginLocationId#
+	</select>
+
+</sqlMap>

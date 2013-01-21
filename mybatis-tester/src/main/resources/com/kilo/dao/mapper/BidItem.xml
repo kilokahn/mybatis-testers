@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="BidItem">
+	<resultMap class="com.kilo.domain.BidItem" id="bidItem">
+		<result property="bidItemId" column="bid_item_id"/>
+		<result property="bidItemCategory" column="bid_item_category_id" select="BidItemCategory.getBidItemCategoryById"/>
+		<result property="name" column="name"/>
+		<result property="description" column="description"/>
+	</resultMap>
+
+	<select id="getBidItems" resultMap="bidItem">
+		/*${com.kilo.statement.marker}*/
+		SELECT bid_item_id, bid_item_category_id, name, description
+		  FROM bid_item
+	</select>
+
+</sqlMap>
