@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="BidItemCategory">
-	<resultMap class="com.kilo.domain.BidItemCategory" id="bidItemCategory">
-		<result property="bidItemCategoryId" column="bid_item_category_id"/>
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Thu Jan 31 22:03:52 IST 2013-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kilo.dao.mapper.BidItemCategoryDAO">
+	<resultMap id="bidItemCategory" type="com.kilo.domain.BidItemCategory">
+		<id property="bidItemCategoryId" column="bid_item_category_id"/>
 		<result property="name" column="name"/>
 	</resultMap>
 
-	<select id="getBidItemCategoryById" resultMap="bidItemCategory" parameterClass="java.lang.Integer"
-		cacheModel="cache.reference-data-cache">
+	<select id="getBidItemCategoryById" parameterType="java.lang.Integer" resultMap="bidItemCategory">
 		/*${com.kilo.statement.marker}*/
 		SELECT bid_item_category_id, name
 		  FROM bid_item_category
-		 WHERE bid_item_category_id = #bidItemCategoryId#
+		 WHERE bid_item_category_id = #{bidItemCategoryId}
 	</select>
 
-</sqlMap>
+</mapper>

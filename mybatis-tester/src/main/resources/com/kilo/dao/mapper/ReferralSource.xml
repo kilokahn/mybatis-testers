@@ -6,7 +6,7 @@
     <cache flushInterval="86400" readOnly="true" />
 
 	<resultMap type="com.kilo.domain.ReferralSource" id="referralSource">
-		<result property="referralSourceId" column="referral_source_id"/>
+		<id property="referralSourceId" column="referral_source_id"/>
 		<result property="name" column="name"/>
 	</resultMap>
 

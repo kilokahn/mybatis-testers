@@ -9,7 +9,7 @@ public interface UserDAO {
 
     List<User> getUsers();
 
-    User getUser(Integer userId);
+    User getUserById(Integer userId);
 
     User getUserByName(String userName);
 
