@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ibatis.annotations.MapKey;
+
 import com.kilo.domain.Bid;
 import com.kilo.domain.BidItemCategory;
 import com.kilo.domain.dto.BidItemCategoryAvgBidPrice;
@@ -19,6 +21,7 @@ public interface BidDAO {
     List<BidItemCategoryAvgBidPrice> getAverageBidPricePerCategoryForBidIds(
             List<Long> bidIds);
 
+    @MapKey("bidItemCategory")
     Map<BidItemCategory, BigDecimal> getAverageBidPricePerCategoryForBidIdsAsMap(
             List<Long> bidIds);
 
