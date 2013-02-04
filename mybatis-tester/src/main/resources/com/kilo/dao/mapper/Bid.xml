@@ -47,7 +47,7 @@
                </foreach>
     </select>
 
-    <select id="getAverageBidPricePerCategoryForBidIds" parameterType="java.util.List" resultMap="averageBidPricePerCategory">
+    <sql id="averageBidPricePerCategoryForBidIdsFragment">
         /*${com.kilo.statement.marker}*/
         SELECT bi.bid_item_category_id, AVG(b.bid_price) AS avg_bid_price
           FROM bid b
@@ -57,18 +57,14 @@
                 #{item}
                </foreach>
       GROUP BY bi.bid_item_category_id
+    </sql>
+
+    <select id="getAverageBidPricePerCategoryForBidIds" parameterType="java.util.List" resultMap="averageBidPricePerCategory">
+        <include refid="averageBidPricePerCategoryForBidIdsFragment" />
     </select>
 
     <select id="getAverageBidPricePerCategoryForBidIdsAsMap" parameterType="java.util.List" 
         resultMap="averageBidPricePerCategoryMap">
-        /*${com.kilo.statement.marker}*/
-        SELECT bi.bid_item_category_id, AVG(b.bid_price) AS avg_bid_price
-          FROM bid b
-          JOIN bid_item bi
-            ON b.bid_item_id = bi.bid_item_id
-         WHERE b.bid_id IN <foreach collection="list" item="item" separator="," close=")" open="(">
-                #{item}
-               </foreach>
-      GROUP BY bi.bid_item_category_id
+        <include refid="averageBidPricePerCategoryForBidIdsFragment" />
     </select>
 </mapper>
