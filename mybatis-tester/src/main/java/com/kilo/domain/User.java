@@ -1,3 +1,4 @@
+
 package com.kilo.domain;
 
 import java.util.List;
@@ -5,63 +6,63 @@ import java.util.Set;
 
 public class User {
 
-	private Integer userId;
+    private Integer userId;
 
-	private String userName;
+    private String userName;
 
-	private List<ReferralSource> referralSources;
+    private List<ReferralSource> referralSources;
 
-	private List<String> loginIpAddresses;
+    private List<String> loginIpAddresses;
 
-	private List<LoginLocation> loginLocations;
-	
-	private Set<String> uniqueSites;
+    private List<LoginLocation> loginLocations;
 
-	public Integer getUserId() {
-		return userId;
-	}
+    private Set<String> uniqueSites;
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public List<ReferralSource> getReferralSources() {
-		return referralSources;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setReferralSources(List<ReferralSource> referralSources) {
-		this.referralSources = referralSources;
-	}
+    public List<ReferralSource> getReferralSources() {
+        return referralSources;
+    }
 
-	public List<String> getLoginIpAddresses() {
-		return loginIpAddresses;
-	}
+    public void setReferralSources(List<ReferralSource> referralSources) {
+        this.referralSources = referralSources;
+    }
 
-	public void setLoginIpAddresses(List<String> loginIpAddresses) {
-		this.loginIpAddresses = loginIpAddresses;
-	}
+    public List<String> getLoginIpAddresses() {
+        return loginIpAddresses;
+    }
 
-	public List<LoginLocation> getLoginLocations() {
-		return loginLocations;
-	}
+    public void setLoginIpAddresses(List<String> loginIpAddresses) {
+        this.loginIpAddresses = loginIpAddresses;
+    }
 
-	public void setLoginLocations(List<LoginLocation> loginLocations) {
-		this.loginLocations = loginLocations;
-	}
+    public List<LoginLocation> getLoginLocations() {
+        return loginLocations;
+    }
 
-	public Set<String> getUniqueSites() {
-		return uniqueSites;
-	}
+    public void setLoginLocations(List<LoginLocation> loginLocations) {
+        this.loginLocations = loginLocations;
+    }
 
-	public void setUniqueSites(Set<String> uniqueLoginIpAddresses) {
-		this.uniqueSites = uniqueLoginIpAddresses;
-	}
+    public Set<String> getUniqueSites() {
+        return uniqueSites;
+    }
+
+    public void setUniqueSites(Set<String> uniqueLoginIpAddresses) {
+        this.uniqueSites = uniqueLoginIpAddresses;
+    }
 }
