@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kilo.dao.mapper.BidItemDAO">
-	<resultMap id="bidItem" type="com.kilo.domain.BidItem">
-		<id property="bidItemId" column="bid_item_id"/>
-		<result property="name" column="name"/>
-		<result property="description" column="description"/>
+    <resultMap id="bidItem" type="com.kilo.domain.BidItem">
+        <id property="bidItemId" column="bid_item_id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
         <association property="bidItemCategory" column="bid_item_category_id"
             select="com.kilo.dao.mapper.BidItemCategoryDAO.getBidItemCategoryById" />
-	</resultMap>
+    </resultMap>
 
-	<select id="getBidItems" resultMap="bidItem">
-		/*${com.kilo.statement.marker}*/
-		SELECT bid_item_id, bid_item_category_id, name, description
-		  FROM bid_item
-	</select>
+    <select id="getBidItems" resultMap="bidItem">
+        /*${com.kilo.statement.marker}*/
+        SELECT bid_item_id, bid_item_category_id, name, description
+          FROM bid_item
+    </select>
 
 </mapper>

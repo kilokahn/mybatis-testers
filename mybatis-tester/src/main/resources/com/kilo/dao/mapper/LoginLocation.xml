@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kilo.dao.mapper.LoginLocationDAO">
-	<resultMap id="loginLocation" type="com.kilo.domain.LoginLocation">
-		<id property="loginLocationId" column="login_location_id"/>
-		<result property="ipAddress" column="ip_address"/>
-		<result property="site" column="site"/>
-	</resultMap>
+    <resultMap id="loginLocation" type="com.kilo.domain.LoginLocation">
+        <id property="loginLocationId" column="login_location_id"/>
+        <result property="ipAddress" column="ip_address"/>
+        <result property="site" column="site"/>
+    </resultMap>
 
-	<select id="getLoginLocations" resultMap="loginLocation">
-		/*${com.kilo.statement.marker}*/
-		SELECT login_location_id, ip_address, site
-		  FROM login_location
-	</select>
-	
-	<select id="getLoginLocationById" parameterType="java.lang.Long" resultMap="loginLocation">
-		/*${com.kilo.statement.marker}*/
-		SELECT login_location_id, ip_address, site
-		  FROM login_location
-		 WHERE login_location_id = #{loginLocationId}
-	</select>
+    <select id="getLoginLocations" resultMap="loginLocation">
+        /*${com.kilo.statement.marker}*/
+        SELECT login_location_id, ip_address, site
+          FROM login_location
+    </select>
+    
+    <select id="getLoginLocationById" parameterType="java.lang.Long" resultMap="loginLocation">
+        /*${com.kilo.statement.marker}*/
+        SELECT login_location_id, ip_address, site
+          FROM login_location
+         WHERE login_location_id = #{loginLocationId}
+    </select>
 
 </mapper>

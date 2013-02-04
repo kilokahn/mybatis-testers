@@ -3,18 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kilo.dao.mapper.UserDAO">
 
-	<resultMap id="user" type="com.kilo.domain.User">
-		<id property="userId" column="user_id"/>
-		<result property="userName" column="name"/>
-		<association property="referralSources" column="user_id"
+    <resultMap id="user" type="com.kilo.domain.User">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="name"/>
+        <association property="referralSources" column="user_id"
             select="com.kilo.dao.mapper.ReferralSourceDAO.getReferalSourceByUserId" />
-	</resultMap>
-	
-	<resultMap id="userWithLoginLocations" type="com.kilo.domain.User" 
+    </resultMap>
+    
+    <resultMap id="userWithLoginLocations" type="com.kilo.domain.User" 
         extends="com.kilo.dao.mapper.UserDAO.user">
         <collection property="loginLocations" ofType="com.kilo.domain.LoginLocation" 
             resultMap="com.kilo.dao.mapper.LoginLocationDAO.loginLocation"/>
-	</resultMap>
+    </resultMap>
 
     <resultMap id="userWithLoginIpAddresses" type="com.kilo.domain.User" 
         extends="com.kilo.dao.mapper.UserDAO.userWithLoginLocations">
@@ -23,42 +23,42 @@
         </collection>
     </resultMap>
 
-	<resultMap id="userWithLoginLocationsAndUniqueSites" type="com.kilo.domain.User" 
+    <resultMap id="userWithLoginLocationsAndUniqueSites" type="com.kilo.domain.User" 
         extends="com.kilo.dao.mapper.UserDAO.userWithLoginIpAddresses">
         <collection property="uniqueSites" ofType="java.lang.String">
             <result column="site"/>
         </collection>
-	</resultMap>
+    </resultMap>
 
-	<select id="getUsers" resultMap="userWithLoginLocationsAndUniqueSites">
-		/*${com.kilo.statement.marker}*/
-		SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
-		  FROM [user] u
-		  JOIN user_login_location_map ullm
-		    ON ullm.user_id = u.user_id
-		  JOIN login_location ll
-		    ON ll.login_location_id = ullm.login_location_id  
-	</select>
-	
-	<select id="getUserById" parameterType="java.lang.Integer" resultMap="userWithLoginLocationsAndUniqueSites">
-		/*${com.kilo.statement.marker}*/
-		SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
-		  FROM [user] u
-		  JOIN user_login_location_map ullm
-		    ON ullm.user_id = u.user_id
-		  JOIN login_location ll
-		    ON ll.login_location_id = ullm.login_location_id  
-		 WHERE u.user_id = #{userId}
-	</select>
+    <select id="getUsers" resultMap="userWithLoginLocationsAndUniqueSites">
+        /*${com.kilo.statement.marker}*/
+        SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
+          FROM [user] u
+          JOIN user_login_location_map ullm
+            ON ullm.user_id = u.user_id
+          JOIN login_location ll
+            ON ll.login_location_id = ullm.login_location_id  
+    </select>
+    
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="userWithLoginLocationsAndUniqueSites">
+        /*${com.kilo.statement.marker}*/
+        SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
+          FROM [user] u
+          JOIN user_login_location_map ullm
+            ON ullm.user_id = u.user_id
+          JOIN login_location ll
+            ON ll.login_location_id = ullm.login_location_id  
+         WHERE u.user_id = #{userId}
+    </select>
 
-	<select id="getUserByName" parameterType="java.lang.String" resultMap="userWithLoginLocationsAndUniqueSites">
-		/*${com.kilo.statement.marker}*/
-		SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
-		  FROM [user] u
-		  JOIN user_login_location_map ullm
-		    ON ullm.user_id = u.user_id
-		  JOIN login_location ll
-		    ON ll.login_location_id = ullm.login_location_id  
-		 WHERE u.name = #{userName}
-	</select>
+    <select id="getUserByName" parameterType="java.lang.String" resultMap="userWithLoginLocationsAndUniqueSites">
+        /*${com.kilo.statement.marker}*/
+        SELECT u.user_id, u.name, ll.ip_address, ll.login_location_id, ll.site
+          FROM [user] u
+          JOIN user_login_location_map ullm
+            ON ullm.user_id = u.user_id
+          JOIN login_location ll
+            ON ll.login_location_id = ullm.login_location_id  
+         WHERE u.name = #{userName}
+    </select>
 </mapper>

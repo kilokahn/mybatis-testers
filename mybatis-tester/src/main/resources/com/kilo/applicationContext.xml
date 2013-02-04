@@ -11,9 +11,9 @@
 		</property>
 		<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:jtds:sqlserver://DATASERVERNAME:1433/sandbox;appName=${com.kilo.application.name}" />
+			value="jdbc:jtds:sqlserver://DBDEVHYD1DS1:1433/sandbox;appName=${com.kilo.application.name}" />
 		<property name="username" value="guestuser" />
-		<property name="password" value="tiger" />
+		<property name="password" value="deshaw" />
 	</bean>
 
     <!-- define the SqlSessionFactory, notice that configLocation is not needed when you use MapperFactoryBean -->

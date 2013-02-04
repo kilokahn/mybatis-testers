@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kilo.dao.mapper.BidDAO">
-	<resultMap id="bid" type="com.kilo.domain.Bid">
-		<id property="bidId" column="bid_id"/>
-		<result property="bidTime" column="bid_time"/>
-		<result property="isWinningBid" column="is_winning_bid"/>
-		<result property="bidPrice" column="bid_price"/>
+    <resultMap id="bid" type="com.kilo.domain.Bid">
+        <id property="bidId" column="bid_id"/>
+        <result property="bidTime" column="bid_time"/>
+        <result property="isWinningBid" column="is_winning_bid"/>
+        <result property="bidPrice" column="bid_price"/>
         <association property="user" select="com.kilo.dao.mapper.UserDAO.getUserById" column="user_id"/>
         <collection property="bidItem" resultMap="com.kilo.dao.mapper.BidItemDAO.bidItem"/>
-	</resultMap>
-	
-	<resultMap id="averageBidPricePerCategory" type="com.kilo.domain.dto.BidItemCategoryAvgBidPrice">
-		<result property="avgBidPrice" column="avg_bid_price"/>
+    </resultMap>
+    
+    <resultMap id="averageBidPricePerCategory" type="com.kilo.domain.dto.BidItemCategoryAvgBidPrice">
+        <result property="avgBidPrice" column="avg_bid_price"/>
         <association property="bidItemCategory" column="bid_item_category_id"
             select="com.kilo.dao.mapper.BidItemCategoryDAO.getBidItemCategoryById" />
-	</resultMap>
+    </resultMap>
 
     <resultMap id="averageBidPricePerCategoryMap" type="com.kilo.domain.dto.BidItemCategoryAvgBidPrice">
         <result property="avgBidPrice" column="avg_bid_price"/>
@@ -23,41 +23,41 @@
             select="com.kilo.dao.mapper.BidItemCategoryDAO.getBidItemCategoryById" />
     </resultMap>
 
-	<select id="getBidsForBidIds" parameterType="java.util.List" resultMap="bid">
-		/*${com.kilo.statement.marker}*/
-		SELECT b.bid_id, b.user_id, b.bid_time, b.is_winning_bid, b.bid_price,
-		       bi.bid_item_id, bi.bid_item_category_id, bi.name, bi.description
-		  FROM bid b
-		  JOIN bid_item bi
-		    ON b.bid_item_id = bi.bid_item_id
-		 WHERE b.bid_id IN <foreach collection="list" item="item" separator="," close=")" open="(">
+    <select id="getBidsForBidIds" parameterType="java.util.List" resultMap="bid">
+        /*${com.kilo.statement.marker}*/
+        SELECT b.bid_id, b.user_id, b.bid_time, b.is_winning_bid, b.bid_price,
+               bi.bid_item_id, bi.bid_item_category_id, bi.name, bi.description
+          FROM bid b
+          JOIN bid_item bi
+            ON b.bid_item_id = bi.bid_item_id
+         WHERE b.bid_id IN <foreach collection="list" item="item" separator="," close=")" open="(">
                 #{item}
-		       </foreach>
-	</select>
+               </foreach>
+    </select>
 
-	<select id="getBidsForUniqueBidIds" parameterType="java.util.Set" resultMap="bid">
-		/*${com.kilo.statement.marker}*/
-		SELECT b.bid_id, b.user_id, b.bid_time, b.is_winning_bid, b.bid_price,
-		       bi.bid_item_id, bi.bid_item_category_id, bi.name, bi.description
-		  FROM bid b
-		  JOIN bid_item bi
-		    ON b.bid_item_id = bi.bid_item_id
-		 WHERE b.bid_id IN <foreach collection="list" item="item" separator="," close=")" open="(">
-		 		#{item}
-		       </foreach>
-	</select>
-
-	<select id="getAverageBidPricePerCategoryForBidIds" parameterType="java.util.List" resultMap="averageBidPricePerCategory">
-		/*${com.kilo.statement.marker}*/
-		SELECT bi.bid_item_category_id, AVG(b.bid_price) AS avg_bid_price
-		  FROM bid b
-		  JOIN bid_item bi
-		    ON b.bid_item_id = bi.bid_item_id
-		 WHERE b.bid_id IN <foreach collection="list" item="item" separator="," close=")" open="(">
+    <select id="getBidsForUniqueBidIds" parameterType="java.util.Set" resultMap="bid">
+        /*${com.kilo.statement.marker}*/
+        SELECT b.bid_id, b.user_id, b.bid_time, b.is_winning_bid, b.bid_price,
+               bi.bid_item_id, bi.bid_item_category_id, bi.name, bi.description
+          FROM bid b
+          JOIN bid_item bi
+            ON b.bid_item_id = bi.bid_item_id
+         WHERE b.bid_id IN <foreach collection="list" item="item" separator="," close=")" open="(">
                 #{item}
-		       </foreach>
+               </foreach>
+    </select>
+
+    <select id="getAverageBidPricePerCategoryForBidIds" parameterType="java.util.List" resultMap="averageBidPricePerCategory">
+        /*${com.kilo.statement.marker}*/
+        SELECT bi.bid_item_category_id, AVG(b.bid_price) AS avg_bid_price
+          FROM bid b
+          JOIN bid_item bi
+            ON b.bid_item_id = bi.bid_item_id
+         WHERE b.bid_id IN <foreach collection="list" item="item" separator="," close=")" open="(">
+                #{item}
+               </foreach>
       GROUP BY bi.bid_item_category_id
-	</select>
+    </select>
 
     <select id="getAverageBidPricePerCategoryForBidIdsAsMap" parameterType="java.util.List" 
         resultMap="averageBidPricePerCategoryMap">
