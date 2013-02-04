@@ -12,8 +12,7 @@
     
     <resultMap id="userWithLoginLocations" type="com.kilo.domain.User" 
         extends="com.kilo.dao.mapper.UserDAO.user">
-        <collection property="loginLocations" ofType="com.kilo.domain.LoginLocation" 
-            resultMap="com.kilo.dao.mapper.LoginLocationDAO.loginLocation"/>
+        <collection property="loginLocations" resultMap="com.kilo.dao.mapper.LoginLocationDAO.loginLocation"/>
     </resultMap>
 
     <resultMap id="userWithLoginIpAddresses" type="com.kilo.domain.User" 
