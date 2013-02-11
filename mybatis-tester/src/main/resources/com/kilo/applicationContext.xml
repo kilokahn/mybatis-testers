@@ -21,7 +21,16 @@
         <property name="dataSource" ref="testerDataSource" />
         <property name="configLocation" value="classpath:com/kilo/dao/sqlmap-config.xml" />
         <property name="mapperLocations" value="classpath:com/kilo/dao/mapper/*.xml" />
+        <property name="configurationProperties" ref="configProperties" />
     </bean>
+    
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="schemaName">guest</prop>
+            </props>
+        </property>      
+    </bean> 
 
     <!-- scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

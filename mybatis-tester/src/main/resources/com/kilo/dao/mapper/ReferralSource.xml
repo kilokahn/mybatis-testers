@@ -13,20 +13,22 @@
     <select id="getReferralSources" resultMap="referralSource" useCache="false">
         /* ${com.kilo.statement.marker} */
         SELECT referral_source_id, name
-          FROM referral_source
+          FROM ${schemaName}.referral_source
     </select>
     
     <select id="getReferralSourceById" resultMap="referralSource" 
         parameterType="int" >
+        /*${com.kilo.statement.marker}*/
         SELECT referral_source_id, name
-          FROM referral_source
+          FROM ${schemaName}.referral_source
          WHERE referral_source_id = #{referralSourceId}
     </select>
 
     <select id="getReferalSourceByUserId" resultMap="referralSource" 
         parameterType="int" >
+        /*${com.kilo.statement.marker}*/
         SELECT rs.referral_source_id, rs.name
-          FROM referral_source rs
+          FROM ${schemaName}.referral_source rs
           JOIN user_referral_source_map ursm
             ON rs.referral_source_id = ursm.referral_source_id
          WHERE ursm.user_id = #{userId}
