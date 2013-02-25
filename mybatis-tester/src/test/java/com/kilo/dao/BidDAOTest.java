@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import com.kilo.dao.mapper.BidDAO;
@@ -34,7 +33,7 @@ public class BidDAOTest extends BaseDAOTest {
         Assert.assertTrue(bids.size() == 4);
     }
 
-    @Test(expected = MyBatisSystemException.class)
+    @Test
     public void testGetBidsForUniqueBidIds() {
         Set<Long> bidIds = new HashSet<>(Arrays.asList(1L, 1L, 2L, 3L, 4L));
         List<Bid> bids = bidDAO.getBidsForUniqueBidIds(bidIds);

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ibatis.annotations.MapKey;
+import org.apache.ibatis.annotations.Param;
 
 import com.kilo.domain.Bid;
 import com.kilo.domain.BidItemCategory;
@@ -16,7 +17,7 @@ public interface BidDAO {
 
     List<Bid> getBidsForBidIds(List<Long> bidIds);
 
-    List<Bid> getBidsForUniqueBidIds(Set<Long> bidIds);
+    List<Bid> getBidsForUniqueBidIds(@Param("set") Set<Long> bidIds);
 
     List<BidItemCategoryAvgBidPrice> getAverageBidPricePerCategoryForBidIds(
             List<Long> bidIds);
