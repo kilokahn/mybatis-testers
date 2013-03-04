@@ -38,4 +38,7 @@
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
+    <bean id="referralSourceDAOImpl" class="com.kilo.dao.mapper.impl.ReferralSourceDAOImpl">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
 </beans>
