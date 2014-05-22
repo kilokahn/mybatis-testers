@@ -5,8 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.kilo.dao.mapper.LoginLocationDAO;
