@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
+    <jdbc:initialize-database data-source="testerDataSource">
+        <jdbc:script location="classpath:ibatisTesterDDLRollback.sql"/>
+        <jdbc:script location="classpath:ibatisTesterDDL.sql"/>
+        <jdbc:script location="classpath:ibatisTesterDML.sql"/>
+    </jdbc:initialize-database>
 	<bean id="testerDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="testOnBorrow" value="true" />
 		<property name="maxActive" value="10" />
@@ -11,9 +20,7 @@
 		</property>
 		<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:jtds:sqlserver://DATASERVERNAME:1433/sandbox;appName=${com.kilo.application.name}" />
-		<property name="username" value="guestuser" />
-		<property name="password" value="tiger" />
+			value="jdbc:jtds:sqlserver://DATASERVERNAME:1433/sandbox;appName=${com.kilo.application.name};useKerberos=true" />
 	</bean>
 
     <!-- define the SqlSessionFactory, notice that configLocation is not needed when you use MapperFactoryBean -->

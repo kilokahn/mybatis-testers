@@ -1,16 +1,16 @@
-use sandbox
-GO
+use sandbox;
 
-SET NUMERIC_ROUNDABORT OFF
-GO
-SET ANSI_PADDING, ANSI_WARNINGS, CONCAT_NULL_YIELDS_NULL, ARITHABORT, QUOTED_IDENTIFIER, ANSI_NULLS, NOCOUNT ON
-GO
-SET DATEFORMAT YMD
-GO
-SET XACT_ABORT ON
-GO
-SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
-GO
+
+SET NUMERIC_ROUNDABORT OFF;
+
+SET ANSI_PADDING, ANSI_WARNINGS, CONCAT_NULL_YIELDS_NULL, ARITHABORT, QUOTED_IDENTIFIER, ANSI_NULLS, NOCOUNT ON;
+
+SET DATEFORMAT YMD;
+
+SET XACT_ABORT ON;
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
 -- Pointer used for text / image updates. This might not be needed, but is declared here just in case
 DECLARE @pv binary(16)
 BEGIN TRANSACTION
@@ -139,29 +139,29 @@ ALTER TABLE [guest].[user_login_location_map] ADD CONSTRAINT [FK_user_login_loca
 
 -- Add constraints to [guest].[bid_item]
 ALTER TABLE [guest].[bid_item] ADD CONSTRAINT [FK_bid_item_bid_item_category] FOREIGN KEY ([bid_item_category_id]) REFERENCES [guest].[bid_item_category] ([bid_item_category_id])
-COMMIT TRANSACTION
-GO
+COMMIT TRANSACTION;
+
 
 -- Reseed identity on [guest].[bid]
-DBCC CHECKIDENT('[guest].[bid]', RESEED, 8)
-GO
+DBCC CHECKIDENT('[guest].[bid]', RESEED, 8);
+
 
 -- Reseed identity on [guest].[bid_item]
-DBCC CHECKIDENT('[guest].[bid_item]', RESEED, 12)
-GO
+DBCC CHECKIDENT('[guest].[bid_item]', RESEED, 12);
+
 
 -- Reseed identity on [guest].[user]
-DBCC CHECKIDENT('[guest].[user]', RESEED, 5)
-GO
+DBCC CHECKIDENT('[guest].[user]', RESEED, 5);
+
 
 -- Reseed identity on [guest].[referral_source]
-DBCC CHECKIDENT('[guest].[referral_source]', RESEED, 4)
-GO
+DBCC CHECKIDENT('[guest].[referral_source]', RESEED, 4);
+
 
 -- Reseed identity on [guest].[login_location]
-DBCC CHECKIDENT('[guest].[login_location]', RESEED, 7)
-GO
+DBCC CHECKIDENT('[guest].[login_location]', RESEED, 7);
+
 
 -- Reseed identity on [guest].[bid_item_category]
-DBCC CHECKIDENT('[guest].[bid_item_category]', RESEED, 6)
-GO
+DBCC CHECKIDENT('[guest].[bid_item_category]', RESEED, 6);
+
