@@ -8,4 +8,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <!-- changes from the defaults -->
         <setting name="lazyLoadingEnabled" value="false" />
     </settings>
+    <!-- For java.time.LocalDateTime like stuff
+        Further discussion in https://groups.google.com/forum/#!topic/mybatis-user/KZf41AYMU0k
+     -->
+    <typeHandlers>
+        <package name="org.apache.mybatis.custom.typehandlers"/>
+    </typeHandlers>
 </configuration>

@@ -8,9 +8,9 @@
     http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
     <jdbc:initialize-database data-source="testerDataSource">
-        <jdbc:script location="classpath:ibatisTesterDDLRollback.sql"/>
         <jdbc:script location="classpath:ibatisTesterDDL.sql"/>
         <jdbc:script location="classpath:ibatisTesterDML.sql"/>
+        <jdbc:script location="classpath:ibatisTesterDDLRollback.sql" execution="DESTROY"/>
     </jdbc:initialize-database>
     <bean id="testerDataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="testOnBorrow" value="true" />

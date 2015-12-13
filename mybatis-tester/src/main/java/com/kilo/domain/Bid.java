@@ -2,7 +2,7 @@
 package com.kilo.domain;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Bid {
 
@@ -12,7 +12,7 @@ public class Bid {
 
     private User user;
 
-    private Date bidTime;
+    private LocalDateTime bidTime;
 
     private Boolean isWinningBid;
 
@@ -42,11 +42,11 @@ public class Bid {
         this.user = user;
     }
 
-    public Date getBidTime() {
+    public LocalDateTime getBidTime() {
         return bidTime;
     }
 
-    public void setBidTime(Date bidTime) {
+    public void setBidTime(LocalDateTime bidTime) {
         this.bidTime = bidTime;
     }
 
