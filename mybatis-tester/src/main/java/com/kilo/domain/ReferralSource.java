@@ -7,6 +7,12 @@ public class ReferralSource {
 
     private String name;
 
+    public ReferralSource(Integer referralSourceId, String name) {
+        super();
+        this.referralSourceId = referralSourceId;
+        this.name = name;
+    }
+
     public Integer getReferralSourceId() {
         return referralSourceId;
     }
